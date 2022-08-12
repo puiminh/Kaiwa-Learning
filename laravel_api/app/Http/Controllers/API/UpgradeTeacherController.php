@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\User;
-use App\Models\UpgradeTeacher;
+use App\Models\Upgradeteacher;
 
 use App\Http\Requests\SendNotificationRequest;
 use App\Notifications\SendNotification;
@@ -19,7 +19,10 @@ class UpgradeTeacherController extends Controller
     public function index()
     {
         //dùng riêng cho role admin
-        $requests = UpgradeTeacher::all();
+        $requests = UpgradeTeacher::join('users', 'users.id', '=', 'upgrade_teachers.user_id')
+            ->where('status', '=', 'pending')
+            ->select('upgrade_teachers.*', 'users.username', 'users.email')
+            ->get();
         return response()->json([
             'status' => 200,
             'requests' => $requests,
@@ -71,9 +74,11 @@ class UpgradeTeacherController extends Controller
         //send notification to user
         $data = [
             'user_id' => $user->id,
-            'name' => 'Yêu cầu trở thành giáo viên được phê duyệt',
+            'title' => 'Request Accepted',
+            'type' =>  'request accepted',
+            'name' => 'Request To Become Teacher Accepted',
             'status' => 'accepted',
-            'description' => 'Xin chúc mừng, Bạn đã trở thành giáo viên!',
+            'description' => 'Congratulations! Your request to become a teacher has been accepted',
         ];
         $user->notify(new SendNotification ($data));
         
@@ -90,9 +95,11 @@ class UpgradeTeacherController extends Controller
         //send notification to user
         $data = [
             'user_id' => $req->user_id,
-            'name' => 'Yêu cầu trở thành giáo viên đã bị từ chối',
+            'title' => 'Request Rejected',
+            'type' =>  'request rejected',
+            'name' => 'Request To Be Teacher Rejected',
             'status' => 'rejected',
-            'description' => 'Thật đáng tiếc, bạn không đủ điều kiện để trở thành giáo viên!',
+            'description' => 'Sorry, Your request to become teacher has been rejected',
         ];
         $user = User::find($req->user_id);
         $user->notify(new SendNotification ($data));
