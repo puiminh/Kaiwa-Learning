@@ -1,6 +1,6 @@
-# E-Learning
+# Kaiwa E-Learning
 
-# Demo: https://kaiwa-elearning.herokuapp.com/
+### Demo: https://kaiwa-elearning.herokuapp.com/
 # Member:
 Bui Hong Minh (Team Leader) </br>
 Ngu Duy Vinh (Frontend) </br>
