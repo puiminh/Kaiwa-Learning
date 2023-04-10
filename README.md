@@ -13,3 +13,7 @@ Truong Quoc Thang (Backend) </br>
 ##Website demo:
 
 ![image](https://user-images.githubusercontent.com/86037720/230857085-ee6d6887-fedb-4736-9b7a-229221ea36b4.png)
+
+##Preview Slide:
+
+https://docs.google.com/presentation/d/1H_J_V8HylXXt2o9wakPOGA0-GDrh6b8GAk7NFT2IU9M/edit#slide=id.p1
